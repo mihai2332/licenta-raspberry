@@ -20,9 +20,8 @@ public class MqttConfiguration {
         IMqttClient mqttClient = new MqttClient("tcp://localhost:1883", "RaspPi");
         mqttClient.connect();
         mqttClient.subscribe(TOPIC, (TOPIC, msg) -> {
-            System.out.println(msg);
-            persistenceService.postSensorMessage(msg.toString(), "MQ135");
-            Thread.sleep(2000);
+            String[] data = TOPIC.split("/");
+            persistenceService.postSensorMessage(msg.toString(), data[1]);
         });
     }
 }
