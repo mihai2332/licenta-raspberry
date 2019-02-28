@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MqttConfiguration {
-    private static final String TOPIC = "esp/MQ135";
+    private static final String TOPIC = "esp/#";
 
     @Autowired
     PersistenceService persistenceService;
@@ -21,7 +21,7 @@ public class MqttConfiguration {
         mqttClient.connect();
         mqttClient.subscribe(TOPIC, (TOPIC, msg) -> {
             System.out.println(msg);
-            persistenceService.postMQ135Message(msg.toString());
+            persistenceService.postSensorMessage(msg.toString(), "MQ135");
             Thread.sleep(2000);
         });
     }

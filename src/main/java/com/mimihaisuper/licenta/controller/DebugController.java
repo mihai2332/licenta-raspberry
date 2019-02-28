@@ -4,13 +4,10 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.*;
-import com.mimihaisuper.licenta.repository.SensorMQ135Repository;
 import com.mimihaisuper.licenta.services.PersistenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
@@ -29,16 +26,16 @@ public class DebugController {
         return ResponseEntity.ok("tableCreated");
     }
 
-    @GetMapping(value = "/record")
-    public ResponseEntity<Object> postRecord(){
-        persistenceService.postMQ135Message("noua valoare");
+    @PostMapping(value = "/record")
+    public ResponseEntity<Object> postRecord(@RequestBody String value){
+        persistenceService.postSensorMessage(value, "postedFromHttp");
         return  ResponseEntity.ok("recordCreated");
     }
 
 
 
     private void createTable() {
-        String tableName = "SensorMQ135";
+        String tableName = "Sensor";
         DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
         try {
             System.out.println("Attempting to create table; please wait...");

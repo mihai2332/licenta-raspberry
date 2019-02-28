@@ -1,7 +1,7 @@
 package com.mimihaisuper.licenta.services;
 
-import com.mimihaisuper.licenta.models.SensorMQ135;
-import com.mimihaisuper.licenta.repository.SensorMQ135Repository;
+import com.mimihaisuper.licenta.models.Sensor;
+import com.mimihaisuper.licenta.repository.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +11,14 @@ import java.util.Date;
 public class PersistenceService {
 
     @Autowired
-    SensorMQ135Repository sensorMQ135Repository;
+    SensorRepository sensorRepository;
 
-    public void postMQ135Message(String value) {
-        SensorMQ135 sensorMQ135 = new SensorMQ135();
-        sensorMQ135.setDate(new Date());
-        sensorMQ135.setValue(value);
-        sensorMQ135Repository.save(sensorMQ135);
+    public void postSensorMessage(String value, String sensorType) {
+        Sensor sensor = new Sensor();
+        sensor.setDate(new Date());
+        sensor.setValue(value);
+        sensor.setSensorType(sensorType);
+        sensorRepository.save(sensor);
+        System.out.println("message " + value + " posted!");
     }
 }
