@@ -20,7 +20,7 @@ public class MqttConfiguration {
     PersistenceService persistenceService;
 
     @Bean
-    public void getPing() throws MqttException {
+    public void handleMessage() throws MqttException {
         IMqttClient mqttClient = new MqttClient("tcp://localhost:1883", "RaspPi");
         MqttConnectOptions options = new MqttConnectOptions();
         options.setKeepAliveInterval(86400);
