@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@EnableDynamoDBRepositories(basePackages = "com.mimihaisuper.licenta.repository")
+//@Configuration
+//@EnableDynamoDBRepositories(basePackages = "com.mimihaisuper.licenta.repository")
 public class DynamoDBConfig {
 
     @Value("${amazon.dynamodb.endpoint}")

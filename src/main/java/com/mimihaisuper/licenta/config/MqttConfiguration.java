@@ -16,8 +16,8 @@ public class MqttConfiguration {
     private static final String TOPIC = "esp/#";
     Logger logger = LoggerFactory.getLogger(MqttConfiguration.class);
 
-    @Autowired
-    PersistenceService persistenceService;
+//    @Autowired
+//    PersistenceService persistenceService;
 
     @Bean
     public void getPing() throws MqttException {
@@ -28,7 +28,7 @@ public class MqttConfiguration {
         mqttClient.subscribe(TOPIC, (TOPIC, msg) -> {
             String[] data = TOPIC.split("/");
             logger.info("message "+ msg.toString() + " received!");
-            persistenceService.postSensorMessage(msg.toString(), data[1]);
+//            persistenceService.postSensorMessage(msg.toString(), data[1]);
         });
     }
 }

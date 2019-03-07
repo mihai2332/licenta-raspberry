@@ -14,11 +14,11 @@ import java.util.Arrays;
 @RestController
 @RequestMapping(value = "/ping")
 public class DebugController {
-    @Autowired
-    AmazonDynamoDB amazonDynamoDB;
+//    @Autowired
+//    AmazonDynamoDB amazonDynamoDB;
 
-    @Autowired
-    PersistenceService persistenceService;
+//    @Autowired
+//    PersistenceService persistenceService;
 
     @GetMapping(value = {"/", ""})
     public ResponseEntity<Object> getPing() {
@@ -28,29 +28,29 @@ public class DebugController {
 
     @PostMapping(value = "/record")
     public ResponseEntity<Object> postRecord(@RequestBody String value){
-        persistenceService.postSensorMessage(value, "postedFromHttp");
+//        persistenceService.postSensorMessage(value, "postedFromHttp");
         return  ResponseEntity.ok("recordCreated");
     }
 
 
 
-    private void createTable() {
-        String tableName = "Sensor";
-        DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
-        try {
-            System.out.println("Attempting to create table; please wait...");
-            Table table = dynamoDB.createTable(tableName,
-                    Arrays.asList(new KeySchemaElement("id", KeyType.HASH), // Partition key
-                            new KeySchemaElement("date", KeyType.RANGE)), // Sort key
-                    Arrays.asList(new AttributeDefinition("id", ScalarAttributeType.S),
-                            new AttributeDefinition("date", ScalarAttributeType.S)),
-                    new ProvisionedThroughput(10L, 10L));
-            table.waitForActive();
-            System.out.println("Success.  Table status: " + table.getDescription().getTableStatus());
-
-        } catch (Exception e) {
-            System.err.println("Unable to create table: ");
-            System.err.println(e.getMessage());
-        }
-    }
+//    private void createTable() {
+//        String tableName = "Sensor";
+//        DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
+//        try {
+//            System.out.println("Attempting to create table; please wait...");
+//            Table table = dynamoDB.createTable(tableName,
+//                    Arrays.asList(new KeySchemaElement("id", KeyType.HASH), // Partition key
+//                            new KeySchemaElement("date", KeyType.RANGE)), // Sort key
+//                    Arrays.asList(new AttributeDefinition("id", ScalarAttributeType.S),
+//                            new AttributeDefinition("date", ScalarAttributeType.S)),
+//                    new ProvisionedThroughput(10L, 10L));
+//            table.waitForActive();
+//            System.out.println("Success.  Table status: " + table.getDescription().getTableStatus());
+//
+//        } catch (Exception e) {
+//            System.err.println("Unable to create table: ");
+//            System.err.println(e.getMessage());
+//        }
+//    }
 }

@@ -9,19 +9,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Service
+//@Service
 public class PersistenceService {
     Logger logger = LoggerFactory.getLogger(PersistenceService.class);
 
-    @Autowired
-    SensorRepository sensorRepository;
+//    @Autowired
+//    SensorRepository sensorRepository;
 
-    public void postSensorMessage(String value, String sensorType) {
-        Sensor sensor = new Sensor();
-        sensor.setDate(new Date());
-        sensor.setValue(value);
-        sensor.setSensorType(sensorType);
-        sensorRepository.save(sensor);
-        logger.info("message " + value + " posted!");
-    }
+//    public void postSensorMessage(String value, String sensorType) {
+//        Sensor sensor = new Sensor();
+//        sensor.setDate(new Date());
+//        sensor.setValue(value);
+//        sensor.setSensorType(sensorType);
+//        sensorRepository.save(sensor);
+//        logger.info("message " + value + " posted!");
+//    }
 }
