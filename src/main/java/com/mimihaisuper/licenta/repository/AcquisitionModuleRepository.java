@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AcquisitionModuleRepository extends CrudRepository<AcquisitionModule, Long> {
+    boolean existsByName(String name);
+    AcquisitionModule findByName(String name);
 }
