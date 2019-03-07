@@ -25,6 +25,8 @@ public class PersistenceService {
     AcquisitionModuleRepository moduleRepository;
 
     public void postSensorMessage(String moduleName, String sensorType, String value) {
+        long startTime = System.currentTimeMillis();
+
         AcquisitionModule acquisitionModule = getModule(moduleName);
         Sensor sensor = getSensor(sensorType);
         Measurement measurement = new Measurement();
@@ -35,7 +37,10 @@ public class PersistenceService {
         moduleRepository.save(acquisitionModule);
         sensorRepository.save(sensor);
         measurementRepository.save(measurement);
-        logger.info("message " + value + " posted!");
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        logger.info("message " + value + " posted in " + elapsedTime + " milliseconds!");
     }
 
     private Sensor getSensor(String sensorType) {
