@@ -24,11 +24,11 @@ public class PersistenceService {
     @Autowired
     AcquisitionModuleRepository moduleRepository;
 
-    public void postSensorMessage(String moduleName, String sensorType, String value) {
+    public void postSensorMessage(String moduleUUID, String sensorType, String value) {
         long startTime = System.currentTimeMillis();
 
-        AcquisitionModule acquisitionModule = getModule(moduleName);
-        Sensor sensor = getSensor(sensorType);
+        AcquisitionModule acquisitionModule = getModule(moduleUUID);
+        Sensor sensor = getSensor(sensorType, acquisitionModule);
         Measurement measurement = new Measurement();
         measurement.setCreationDate(new Date());
         measurement.setValue(value);
@@ -43,24 +43,24 @@ public class PersistenceService {
         logger.info("message " + value + " posted in " + elapsedTime + " milliseconds!");
     }
 
-    private Sensor getSensor(String sensorType) {
+    private Sensor getSensor(String sensorType, AcquisitionModule acquisitionModule) {
         Sensor sensor = new Sensor();
-        if (!sensorRepository.existsBySensorType(sensorType)) {
+        if (!sensorRepository.existsBySensorTypeAndAcquisitionModule(sensorType, acquisitionModule)) {
             sensor.setSensorType(sensorType);
             sensor = sensorRepository.save(sensor);
         } else {
-            sensor = sensorRepository.findBySensorType(sensorType);
+            sensor = sensorRepository.findBySensorTypeAndAcquisitionModule(sensorType, acquisitionModule);
         }
         return sensor;
     }
 
-    private AcquisitionModule getModule(String moduleName) {
+    private AcquisitionModule getModule(String moduleUUID) {
         AcquisitionModule acquisitionModule = new AcquisitionModule();
-        if (!moduleRepository.existsByName(moduleName)) {
-            acquisitionModule.setName(moduleName);
+        if (!moduleRepository.existsByUuid(moduleUUID)) {
+            acquisitionModule.setUuid(moduleUUID);
             acquisitionModule = moduleRepository.save(acquisitionModule);
         } else {
-            acquisitionModule = moduleRepository.findByName(moduleName);
+            acquisitionModule = moduleRepository.findByUuid(moduleUUID);
         }
         return acquisitionModule;
     }

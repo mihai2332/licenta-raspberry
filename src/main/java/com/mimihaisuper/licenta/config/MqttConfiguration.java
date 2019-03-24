@@ -28,7 +28,7 @@ public class MqttConfiguration {
         mqttClient.subscribe(TOPIC, (TOPIC, msg) -> {
             String[] data = TOPIC.split("/");
             logger.info("message "+ msg.toString() + " received!");
-            persistenceService.postSensorMessage("numeModul1", data[1], msg.toString());
+            persistenceService.postSensorMessage(data[1], data[2], msg.toString());
         });
     }
 }

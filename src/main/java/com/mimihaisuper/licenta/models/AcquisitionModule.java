@@ -1,10 +1,5 @@
 package com.mimihaisuper.licenta.models;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,6 +13,9 @@ public class AcquisitionModule {
 
     @Column(name = "NAME")
     private String name;
+
+    @Column(name = "UUID")
+    private String uuid;
 
     @OneToMany(mappedBy = "acquisitionModule")
     private Set<Sensor> sensors;
@@ -40,6 +38,14 @@ public class AcquisitionModule {
 
     public Set<Sensor> getSensors() {
         return sensors;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public void setSensors(Set<Sensor> sensors) {
